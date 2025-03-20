@@ -1,0 +1,268 @@
+[gd_scene load_steps=15 format=3 uid="uid://cwg0mm5sqw86w"]
+
+[ext_resource type="Texture2D" uid="uid://2ex4ixpk2n7o" path="res://Sprites/Player_metroid.png" id="1_bytgw"]
+[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_nsjtv"]
+[ext_resource type="Shader" path="res://Sprites/shaders/hurt.gdshader" id="2_2cr87"]
+[ext_resource type="Texture2D" uid="uid://cp142jvd7w2m6" path="res://Sprites/gun_1.png" id="3_37e3o"]
+[ext_resource type="PackedScene" uid="uid://gvlglun6fmw3" path="res://scenes/ui/mouse_icon/mouse_icon.tscn" id="4_d5py2"]
+[ext_resource type="Script" path="res://scenes/entities/player/camera.gd" id="4_ktpk3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kyfpw"]
+radius = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdfi3"]
+shader = ExtResource("2_2cr87")
+shader_parameter/flash_color = Color(0.764706, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="Animation" id="Animation_aaviv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player_collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hotbox/hitbox_collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0qg33"]
+resource_name = "death"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player_collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hotbox/hitbox_collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_states"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_crghh"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player_collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hotbox/hitbox_collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+
+[sub_resource type="Animation" id="Animation_i17jk"]
+resource_name = "move"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player_collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hotbox/hitbox_collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_evmp2"]
+_data = {
+"RESET": SubResource("Animation_aaviv"),
+"death": SubResource("Animation_0qg33"),
+"idle": SubResource("Animation_crghh"),
+"move": SubResource("Animation_i17jk")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3xee"]
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_mask = 29
+script = ExtResource("1_nsjtv")
+Speed = 85
+cooldown_to_shoot = 0.2
+
+[node name="player_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_kyfpw")
+disabled = true
+debug_color = Color(0.0575343, 0.60644, 0.651166, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_gdfi3")
+position = Vector2(0, -12)
+texture = ExtResource("1_bytgw")
+hframes = 8
+vframes = 7
+frame = 1
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_evmp2")
+}
+autoplay = "idle"
+
+[node name="hotbox" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_mask = 33
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="hotbox"]
+shape = SubResource("CircleShape2D_r3xee")
+debug_color = Color(1, 0.012597, 0.0137024, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -12)
+zoom = Vector2(3.4, 3.4)
+script = ExtResource("4_ktpk3")
+
+[node name="camera_shake" type="Timer" parent="Camera2D"]
+autostart = true
+
+[node name="gun_handler" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="gun_sprite" type="Sprite2D" parent="gun_handler"]
+y_sort_enabled = true
+position = Vector2(7, 0)
+texture = ExtResource("3_37e3o")
+
+[node name="bullet_point" type="Marker2D" parent="gun_handler"]
+position = Vector2(14, 0)
+
+[node name="mouse_icon" parent="." instance=ExtResource("4_d5py2")]
+
+[node name="trial_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="area_entered" from="hotbox" to="." method="_on_hotbox_area_entered"]
+[connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
+[connection signal="timeout" from="trial_timer" to="." method="_on_trial_timer_timeout"]

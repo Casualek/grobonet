@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://0anf2icji0ct"]
+
+[ext_resource type="Texture2D" uid="uid://cuuhfkkm2xp8v" path="res://Sprites/dead_fx.png" id="1_1ds1f"]
+[ext_resource type="Script" path="res://scenes/fx/fx.gd" id="1_fvtgr"]
+
+[sub_resource type="Animation" id="Animation_tklpg"]
+resource_name = "Active"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_f5ctu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6wcv"]
+_data = {
+"Active": SubResource("Animation_tklpg"),
+"RESET": SubResource("Animation_f5ctu")
+}
+
+[node name="fx" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_fvtgr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1ds1f")
+hframes = 5
+frame = 1
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i6wcv")
+}

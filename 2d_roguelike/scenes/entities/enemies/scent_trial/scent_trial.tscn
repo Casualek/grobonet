@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://crwnd7ik06atl"]
+
+[ext_resource type="Script" path="res://scenes/entities/enemies/scent_trial/scent_trial.gd" id="1_f484b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71hlr"]
+
+[node name="scent_trial" type="Area2D" groups=["Scent"]]
+collision_layer = 64
+collision_mask = 32
+script = ExtResource("1_f484b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_71hlr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
