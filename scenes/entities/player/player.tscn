@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 [gd_scene load_steps=23 format=3 uid="uid://cwg0mm5sqw86w"]
+=======
+[gd_scene load_steps=16 format=3 uid="uid://cwg0mm5sqw86w"]
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 [ext_resource type="Texture2D" uid="uid://2ex4ixpk2n7o" path="res://Sprites/Player_metroid.png" id="1_bytgw"]
 [ext_resource type="Script" uid="uid://b130hpcoutkwx" path="res://scenes/entities/player/player.gd" id="1_nsjtv"]
 [ext_resource type="Shader" uid="uid://dahgfmxsmqr2v" path="res://Sprites/shaders/hurt.gdshader" id="2_2cr87"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://gvlglun6fmw3" path="res://scenes/ui/mouse_icon/mouse_icon.tscn" id="4_d5py2"]
 [ext_resource type="Script" uid="uid://bobdplayux0wg" path="res://scenes/entities/player/camera.gd" id="4_ktpk3"]
 [ext_resource type="Texture2D" uid="uid://0xl82wpt14ii" path="res://Sprites/shotgun.png" id="5_ovg4i"]
@@ -11,6 +16,11 @@
 [ext_resource type="AudioStream" uid="uid://dxh47sas8ns7g" path="res://Sprites/Music/powerUp.wav" id="8_7wli1"]
 [ext_resource type="AudioStream" uid="uid://btudwwgakx0sx" path="res://Sprites/Music/laserShoot.wav" id="9_ovg4i"]
 [ext_resource type="AudioStream" uid="uid://cdwifk0dird8s" path="res://Sprites/Music/hitHurt (2).wav" id="10_7wli1"]
+=======
+[ext_resource type="Texture2D" uid="uid://cp142jvd7w2m6" path="res://Sprites/gun_1.png" id="3_37e3o"]
+[ext_resource type="PackedScene" uid="uid://gvlglun6fmw3" path="res://scenes/ui/mouse_icon/mouse_icon.tscn" id="4_d5py2"]
+[ext_resource type="Script" uid="uid://bobdplayux0wg" path="res://scenes/entities/player/camera.gd" id="4_ktpk3"]
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyfpw"]
 radius = 7.0
@@ -206,6 +216,7 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r3xee"]
 
+<<<<<<< HEAD
 [sub_resource type="Animation" id="Animation_j0oqr"]
 length = 0.001
 tracks/0/type = "value"
@@ -267,6 +278,10 @@ _data = {
 &"RESET": SubResource("Animation_j0oqr"),
 &"Spin": SubResource("Animation_7wli1")
 }
+=======
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8akj5"]
+size = Vector2(96, 80)
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -316,6 +331,7 @@ autostart = true
 [node name="gun_handler" type="Node2D" parent="."]
 y_sort_enabled = true
 
+<<<<<<< HEAD
 [node name="gunanim" type="AnimationPlayer" parent="gun_handler"]
 root_node = NodePath("../gun_sprite")
 libraries = {
@@ -327,6 +343,12 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(7, 0)
 texture = ExtResource("5_ovg4i")
+=======
+[node name="gun_sprite" type="Sprite2D" parent="gun_handler"]
+y_sort_enabled = true
+position = Vector2(7, 0)
+texture = ExtResource("3_37e3o")
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 [node name="bullet_point" type="Marker2D" parent="gun_handler"]
 position = Vector2(14, 0)
@@ -337,6 +359,7 @@ position = Vector2(14, 0)
 wait_time = 0.1
 autostart = true
 
+<<<<<<< HEAD
 [node name="reload" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_ovg4i")
 
@@ -363,10 +386,20 @@ one_shot = true
 
 [node name="IFrame" type="Timer" parent="."]
 one_shot = true
+=======
+[node name="enemy_spawn" type="Area2D" parent="."]
+collision_mask = 33
+
+[node name="enemy_spawn_cancel" type="CollisionShape2D" parent="enemy_spawn"]
+shape = SubResource("RectangleShape2D_8akj5")
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 [connection signal="area_entered" from="hotbox" to="." method="_on_hotbox_area_entered"]
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="timeout" from="trial_timer" to="." method="_on_trial_timer_timeout"]
+<<<<<<< HEAD
 [connection signal="timeout" from="CheckIfIn" to="." method="_on_check_if_in_timeout"]
 [connection signal="timeout" from="GunReload" to="." method="_on_gun_reload_timeout"]
 [connection signal="timeout" from="IFrame" to="." method="_on_i_frame_timeout"]
+=======
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9

@@ -20,6 +20,7 @@ var is_dead: bool = false
 var can_shoot: bool = true
 var pos: Vector2
 var rot
+<<<<<<< HEAD
 var can_take_damage: bool = true
 var input_move: Vector2 = Vector2()
 var last_entered_area: Area2D = null
@@ -31,6 +32,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	
+=======
+var input_move: Vector2 = Vector2()
+
+
+func _ready() -> void:
+	pass 
+
+func _process(delta: float) -> void:
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 	if player_data.health <= 0:
 		current_state = player_states.DEAD
 	
@@ -56,12 +66,19 @@ func movement(delta: float) -> void:
 			can_shoot = false
 		if can_shoot:
 			player_data.ammo -= 1
+<<<<<<< HEAD
 			$gun_handler/gunanim.play("Spin")
 			$gunshot.play()
 			instance_bullet()
 			can_shoot = false
 			$reload.play()
 			$GunReload.start()
+=======
+			instance_bullet()
+			can_shoot = false
+			await get_tree().create_timer(cooldown_to_shoot).timeout
+			can_shoot = true
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 	move_and_slide()
 
 func animations() -> void:
@@ -124,6 +141,7 @@ func _on_trial_timer_timeout() -> void:
 
 
 func _on_hotbox_area_entered(area: Area2D) -> void:
+<<<<<<< HEAD
 	if area.is_in_group("Enemies") and can_take_damage:
 		can_take_damage = false
 		$hurt.play()
@@ -132,11 +150,17 @@ func _on_hotbox_area_entered(area: Area2D) -> void:
 		flash()
 		player_data.health -= 1
 		last_entered_area = area  # Store the area for later reference
+=======
+	if area.is_in_group("Enemies"):
+		flash()
+		player_data.health -= 1
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 
 func flash() -> void:
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0.75)
 	await get_tree().create_timer(0.25).timeout
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0)
+<<<<<<< HEAD
 
 
 func _on_gun_reload_timeout() -> void:
@@ -159,3 +183,5 @@ func _on_check_if_in_timeout() -> void:
 		$IFrame.start()
 		flash()
 		player_data.health -= 1
+=======
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9

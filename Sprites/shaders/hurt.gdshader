@@ -7,5 +7,8 @@ void fragment() {
 	vec4 color = texture(TEXTURE, UV);
 	color.rgb = mix(color.rgb, flash_color.rgb, flash_modifier);
 	COLOR = color;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> a56dadeea0936593713d7ef0f144ad3a777c09a9
 }
