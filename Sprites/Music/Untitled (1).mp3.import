@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bm4oe6be8icol"
+path="res://.godot/imported/Untitled (1).mp3-3534462b09b96072f9ba46014479aa94.mp3str"
+
+[deps]
+
+source_file="res://Sprites/Music/Untitled (1).mp3"
+dest_files=["res://.godot/imported/Untitled (1).mp3-3534462b09b96072f9ba46014479aa94.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
