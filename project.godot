@@ -18,10 +18,16 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://globals/Globals.gd"
+Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
+PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg")
 
 [global_group]
 
@@ -83,6 +89,10 @@ Dash={
 2d_physics/layer_5="Interactables"
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="Scent"
+
+[quiver]
+
+general/auth_token="cHVt4cxBtejIBPmBtZn4vEjRAvpHew1YLYrfL0wn"
 
 [rendering]
 

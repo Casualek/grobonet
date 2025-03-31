@@ -6,7 +6,7 @@ extends CanvasLayer
 @onready var timer: Timer = $"../Timer"
 
 const HEART_ROW_SIZE: int = 8
-const HEART_OFFSET: int = 16
+const HEART_OFFSET: int = 18
 
 func _ready() -> void:
 	for i in player_data.health:
@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	ammo_amount.text = var_to_str(player_data.ammo)
-	timer_countdown.text = "TIME LEFT: "+var_to_str(timer.time_left).pad_decimals(0)
 
 	for hp in heart.get_children():
 		var index = hp.get_index() 

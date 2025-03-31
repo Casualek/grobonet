@@ -29,6 +29,7 @@ var input_move: Vector2 = Vector2()
 var last_entered_area: Area2D = null
 var is_dashing: bool = false
 var can_dash: bool = true
+var has_been_played: bool = false
 
 func _ready() -> void:
 	$AudioStreamPlayer2D.play()
@@ -45,6 +46,11 @@ func _process(delta: float) -> void:
 			movement(delta)
 		player_states.DEAD:
 			dead()
+			
+	if Globals.score >= 5 and has_been_played == false:
+		has_been_played = true
+		$Opened.play()
+		$DoorOpen.play("DoorOpen")
 
 func movement(delta: float) -> void:
 	animations()

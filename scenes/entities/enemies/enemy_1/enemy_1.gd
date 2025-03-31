@@ -72,6 +72,7 @@ func _on_timer_timeout() -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet"):
 		Globals.camera.screen_shake(3, 3, 0.05)
+		Globals.score += 1
 		instance_fx()
 		instance_ammo()
 		queue_free()

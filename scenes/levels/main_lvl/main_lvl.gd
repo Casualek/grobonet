@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func generate_lvl() -> void:
 	walker = Walker_room.new(Vector2(3, 5), borders)
-	map = walker.walk(1700)
+	map = walker.walk(1000)
 	#var end_room_pos = walker.get_end_room().position * 16
 	var using_cells: Array = []
 	var all_cells: Array = tile_map.get_used_cells(ground_layer)
@@ -54,6 +54,3 @@ func instance_enemy(player_pos: Vector2) -> void:
 		enemy.position = (map.pick_random() * borders.position) * 16
 		if(enemy.position != player_pos):
 			add_child(enemy)
-
-func _on_timer_timeout() -> void:
-	get_tree().reload_current_scene()

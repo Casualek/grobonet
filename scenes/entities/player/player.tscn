@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cwg0mm5sqw86w"]
+[gd_scene load_steps=38 format=3 uid="uid://cwg0mm5sqw86w"]
 
 [ext_resource type="Texture2D" uid="uid://2ex4ixpk2n7o" path="res://Sprites/Player_metroid.png" id="1_bytgw"]
 [ext_resource type="Script" uid="uid://b130hpcoutkwx" path="res://scenes/entities/player/player.gd" id="1_nsjtv"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://cdwifk0dird8s" path="res://Sprites/Music/hitHurt (2).wav" id="10_7wli1"]
 [ext_resource type="AudioStream" uid="uid://bc5j7sqyi630f" path="res://Sprites/Music/powerUp (1).wav" id="12_j0oqr"]
 [ext_resource type="FontFile" uid="uid://b6mj2s757myeu" path="res://Sprites/Fonts/Daydream.ttf" id="13_xy2vv"]
+[ext_resource type="AudioStream" uid="uid://dt58joigy16j1" path="res://Sprites/Music/powerUp (2).wav" id="14_r4dfn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyfpw"]
 radius = 7.0
@@ -446,6 +447,94 @@ font_color = Color(1, 0.823529, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_xy2vv"]
 font = ExtResource("13_xy2vv")
 
+[sub_resource type="LabelSettings" id="LabelSettings_70kwc"]
+font = ExtResource("13_xy2vv")
+
+[sub_resource type="Animation" id="Animation_pcd0u"]
+resource_name = "DoorOpen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorOpen2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorOpen2:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.353554, 4),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DoorOpen2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.517632, 2.37841),
+"update": 0,
+"values": [Vector2(-113, -50), Vector2(-118, -103)]
+}
+
+[sub_resource type="Animation" id="Animation_w3p2j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorOpen2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorOpen2:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DoorOpen2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-145, -48)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_knby6"]
+_data = {
+&"DoorOpen": SubResource("Animation_pcd0u"),
+&"RESET": SubResource("Animation_w3p2j")
+}
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_mask = 29
@@ -586,6 +675,24 @@ offset_bottom = 11.0
 theme_override_font_sizes/font_size = 32
 text = "Dash ready"
 label_settings = SubResource("LabelSettings_xy2vv")
+
+[node name="Opened" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_r4dfn")
+
+[node name="DoorOpen2" type="Label" parent="."]
+visible = false
+z_index = 2
+offset_left = -118.0
+offset_top = -103.0
+offset_right = 177.0
+offset_bottom = -80.0
+text = "THE DOOR IS OPEN"
+label_settings = SubResource("LabelSettings_70kwc")
+
+[node name="DoorOpen" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_knby6")
+}
 
 [connection signal="area_entered" from="hotbox" to="." method="_on_hotbox_area_entered"]
 [connection signal="area_exited" from="hotbox" to="." method="_on_hotbox_area_exited"]
