@@ -1,9 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3mo33in4tgll"]
+[gd_scene load_steps=10 format=3 uid="uid://b3mo33in4tgll"]
 
 [ext_resource type="Script" uid="uid://d4b0p0s731ww8" path="res://scenes/levels/main_lvl/main_lvl.gd" id="1_5luie"]
 [ext_resource type="Script" uid="uid://c65nspyuadgm5" path="res://scenes/ui/gui.gd" id="3_2n3hq"]
 [ext_resource type="Texture2D" uid="uid://dqeshcp4ycwpn" path="res://Sprites/HeartSpriteSheet.png" id="3_3100x"]
+[ext_resource type="FontFile" uid="uid://b6mj2s757myeu" path="res://Sprites/Fonts/Daydream.ttf" id="4_300rh"]
 [ext_resource type="Texture2D" uid="uid://baa1x28i2axsq" path="res://Sprites/complex_tilemap_16px.png" id="5_wbgc6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e836g"]
+font = ExtResource("4_300rh")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_300rh"]
+font = ExtResource("4_300rh")
+font_size = 32
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2t1nc"]
 texture = ExtResource("5_wbgc6")
@@ -484,32 +493,34 @@ script = ExtResource("1_5luie")
 script = ExtResource("3_2n3hq")
 
 [node name="heart" type="Sprite2D" parent="GUI"]
-position = Vector2(20, 20)
-scale = Vector2(1.5, 1.5)
+position = Vector2(32, 32)
+scale = Vector2(3, 3)
 texture = ExtResource("3_3100x")
 hframes = 5
 
 [node name="ammo" type="Label" parent="GUI"]
 offset_left = 8.0
-offset_top = 32.0
-offset_right = 144.0
-offset_bottom = 85.0
+offset_top = 64.0
+offset_right = 179.0
+offset_bottom = 128.0
 theme_override_font_sizes/font_size = 32
 text = "AMMO:"
+label_settings = SubResource("LabelSettings_e836g")
 
 [node name="ammo_amount" type="Label" parent="GUI"]
-offset_left = 144.0
-offset_top = 32.0
-offset_right = 184.0
-offset_bottom = 85.0
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 234.0
+offset_bottom = 117.0
 theme_override_font_sizes/font_size = 32
 text = " 0"
+label_settings = SubResource("LabelSettings_300rh")
 
 [node name="timer_countdown" type="Label" parent="GUI"]
 offset_left = 8.0
-offset_top = 85.0
+offset_top = 117.0
 offset_right = 48.0
-offset_bottom = 130.0
+offset_bottom = 162.0
 theme_override_font_sizes/font_size = 32
 text = "2"
 

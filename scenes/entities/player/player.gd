@@ -11,9 +11,13 @@ const SCENT_TRIAL = preload("res://scenes/entities/enemies/scent_trial/scent_tri
 @onready var gun_sprite: Sprite2D = $gun_handler/gun_sprite
 @onready var bullet_point: Marker2D = $gun_handler/bullet_point
 @onready var trial_timer: Timer = $trial_timer
+@onready var dash_timer: Timer = $dash_timer 
 
 @export var Speed: int
 @export var cooldown_to_shoot: float
+@export var dash_speed: int = 300
+@export var dash_duration: float = 0.2
+@export var dash_cooldown: float = 1.0 
 
 var current_state: player_states = player_states.MOVE
 var is_dead: bool = false
@@ -23,14 +27,14 @@ var rot
 var can_take_damage: bool = true
 var input_move: Vector2 = Vector2()
 var last_entered_area: Area2D = null
+var is_dashing: bool = false
+var can_dash: bool = true
 
 func _ready() -> void:
 	$AudioStreamPlayer2D.play()
 	pass 
 
 func _process(delta: float) -> void:
-	
-	
 	if player_data.health <= 0:
 		current_state = player_states.DEAD
 	
@@ -46,11 +50,16 @@ func movement(delta: float) -> void:
 	animations()
 	input_move = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	if input_move != Vector2.ZERO:
-		velocity = input_move * Speed
-	if input_move == Vector2.ZERO:
-		velocity = Vector2.ZERO
-		
+	if Input.is_action_just_pressed("Dash") and can_dash and velocity != Vector2.ZERO:
+		dash()
+		return
+	
+	if !is_dashing:
+		if input_move != Vector2.ZERO:
+			velocity = input_move * Speed
+		else:
+			velocity = Vector2.ZERO
+			
 	if Input.is_action_just_pressed("shoot") or Input.is_action_pressed("shoot"):
 		if player_data.ammo == 0:
 			can_shoot = false
@@ -124,17 +133,24 @@ func _on_trial_timer_timeout() -> void:
 
 
 func _on_hotbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Enemies") and can_take_damage:
-		can_take_damage = false
-		$hurt.play()
+	if area.is_in_group("Enemies"):
+		if(can_take_damage == true): 
+			player_data.health -= 1 
+			can_take_damage = false
+			$hurt.play()
+			flash()
+			$IFrame.start()
+		last_entered_area = area
 		$CheckIfIn.start()
-		$IFrame.start()
-		flash()
-		player_data.health -= 1
-		last_entered_area = area  # Store the area for later reference
 
+func _on_hotbox_area_exited(area: Area2D) -> void:
+	if area == last_entered_area:
+		last_entered_area = null
+		$CheckIfIn.stop()
+		
 func flash() -> void:
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0.75)
+	sprite_2d.material.set_shader_parameter("flash_color", Color(1, 0, 0))
 	await get_tree().create_timer(0.25).timeout
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0)
 
@@ -143,9 +159,10 @@ func _on_gun_reload_timeout() -> void:
 	sprite_2d.material.set_shader_parameter("flash_modifier", 1)
 	sprite_2d.material.set_shader_parameter("flash_color", Color(1, 1, 1))
 	$donereload.play()
+	can_shoot = true
+	$Popupreload.play("reloadpop")
 	await get_tree().create_timer(0.25).timeout
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0)
-	can_shoot = true
 
 
 func _on_i_frame_timeout() -> void:
@@ -153,9 +170,31 @@ func _on_i_frame_timeout() -> void:
 
 
 func _on_check_if_in_timeout() -> void:
-	if last_entered_area and last_entered_area.is_in_group("Enemies") and can_take_damage:
-		can_take_damage = false
+	if last_entered_area and last_entered_area.is_in_group("Enemies"):
+		player_data.health -= 1 
 		$hurt.play()
-		$IFrame.start()
 		flash()
-		player_data.health -= 1
+		$IFrame.start()
+
+func dash() -> void:
+	is_dashing = true
+	can_dash = false
+	can_take_damage = false
+	$IFrame.start()
+	velocity = input_move.normalized() * dash_speed
+	$DashTimer.start()
+	$DashCooldown.start()
+	
+func _on_dash_timer_timeout() -> void:
+	is_dashing = false
+	velocity = Vector2.ZERO
+	
+func _on_dash_cooldown_timeout() -> void:
+	$Popupani.play("dashcooldown")
+	$dashon.play()
+	can_dash = true
+	sprite_2d.material.set_shader_parameter("flash_modifier", 1)
+	sprite_2d.material.set_shader_parameter("flash_color", Color(1, 1, 1))
+	await get_tree().create_timer(0.25).timeout
+	sprite_2d.material.set_shader_parameter("flash_modifier", 0)
+	

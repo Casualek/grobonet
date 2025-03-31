@@ -47,7 +47,7 @@ _data = {
 [node name="ammo_1" type="Area2D"]
 y_sort_enabled = true
 script = ExtResource("1_0ccx7")
-ammo = 10
+ammo = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
