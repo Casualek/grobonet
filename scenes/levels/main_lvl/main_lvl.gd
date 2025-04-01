@@ -5,8 +5,9 @@ const EXIT = preload("res://scenes/interactables/exit/exit.tscn")
 const ENEMY_1 = preload("res://scenes/entities/enemies/enemy_1/enemy_1.tscn")
 
 @onready var tile_map: TileMap = $TileMap
+@onready var collision_shape_2d: CollisionShape2D = $enemy_spawnt/CollisionShape2D
 
-@export var borders: Rect2 = Rect2(1, 1, 180, 90)
+@export var borders: Rect2 = Rect2(1, 1, 160, 90)
 
 var walker: Walker_room
 var map
@@ -35,12 +36,13 @@ func generate_lvl() -> void:
 	var player_pos = instance_player()
 	instance_exit() 
 	instance_enemy(player_pos)
+	Globals.score = 0
 
 func instance_player():
 	var player = PLAYER.instantiate()
 	add_child(player)
 	player.position = map.pop_front() * 16
-	var player_pos = player.position
+	var player_pos = player.global_position
 	return player_pos
 
 func instance_exit() -> void:
@@ -48,9 +50,10 @@ func instance_exit() -> void:
 	add_child(exit)
 	exit.position = walker.get_end_room().position * 16
 
-func instance_enemy(player_pos: Vector2) -> void:
+func instance_enemy(player_pos) -> void:
 	for i in range(20):
 		var enemy = ENEMY_1.instantiate()
 		enemy.position = (map.pick_random() * borders.position) * 16
-		if(enemy.position != player_pos):
+		var dist = enemy.global_position.distance_to(player_pos)
+		if(enemy.position != player_pos && (dist > 5*16 || dist < -5*16)):
 			add_child(enemy)

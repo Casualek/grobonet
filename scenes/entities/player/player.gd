@@ -12,6 +12,7 @@ const SCENT_TRIAL = preload("res://scenes/entities/enemies/scent_trial/scent_tri
 @onready var bullet_point: Marker2D = $gun_handler/bullet_point
 @onready var trial_timer: Timer = $trial_timer
 @onready var dash_timer: Timer = $dash_timer 
+@onready var collision_shape_2d: CollisionShape2D = $enemy_spawnt/CollisionShape2D
 
 @export var Speed: int
 @export var cooldown_to_shoot: float
@@ -47,7 +48,7 @@ func _process(delta: float) -> void:
 		player_states.DEAD:
 			dead()
 			
-	if Globals.score >= 5 and has_been_played == false:
+	if Globals.score >= 20 and has_been_played == false:
 		has_been_played = true
 		$Opened.play()
 		$DoorOpen.play("DoorOpen")
@@ -203,4 +204,3 @@ func _on_dash_cooldown_timeout() -> void:
 	sprite_2d.material.set_shader_parameter("flash_color", Color(1, 1, 1))
 	await get_tree().create_timer(0.25).timeout
 	sprite_2d.material.set_shader_parameter("flash_modifier", 0)
-	

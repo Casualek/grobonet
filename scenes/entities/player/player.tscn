@@ -682,10 +682,10 @@ stream = ExtResource("14_r4dfn")
 [node name="DoorOpen2" type="Label" parent="."]
 visible = false
 z_index = 2
-offset_left = -118.0
-offset_top = -103.0
-offset_right = 177.0
-offset_bottom = -80.0
+offset_left = -145.0
+offset_top = -48.0
+offset_right = 150.0
+offset_bottom = -25.0
 text = "THE DOOR IS OPEN"
 label_settings = SubResource("LabelSettings_70kwc")
 
