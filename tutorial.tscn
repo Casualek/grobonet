@@ -1,0 +1,156 @@
+[gd_scene load_steps=8 format=3 uid="uid://df4arll2bxbrc"]
+
+[ext_resource type="FontFile" uid="uid://b6mj2s757myeu" path="res://Sprites/Fonts/Daydream.ttf" id="1_7n6eb"]
+[ext_resource type="Script" uid="uid://8fshyyk2hgyx" path="res://tutorial.gd" id="1_yb1ct"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yb1ct"]
+font = ExtResource("1_7n6eb")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_ehuit"]
+font = ExtResource("1_7n6eb")
+
+[sub_resource type="Animation" id="Animation_ehuit"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1344, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1104, 248)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Button:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1336, 520)]
+}
+
+[sub_resource type="Animation" id="Animation_yb1ct"]
+resource_name = "main"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.517632, 1),
+"update": 0,
+"values": [Vector2(1344, 40), Vector2(320, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.574349, 1),
+"update": 0,
+"values": [Vector2(-1104, 248), Vector2(64, 248)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Button:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.466516, 1),
+"update": 0,
+"values": [Vector2(1336, 520), Vector2(400, 520)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ehuit"]
+_data = {
+&"RESET": SubResource("Animation_ehuit"),
+&"main": SubResource("Animation_yb1ct")
+}
+
+[node name="Tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yb1ct")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -112.0
+offset_top = -96.0
+offset_right = -72.0
+offset_bottom = -56.0
+scale = Vector2(35.9958, 30.73)
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1344.0
+offset_top = 40.0
+offset_right = 1854.0
+offset_bottom = 124.0
+text = "TUTORIAL"
+label_settings = SubResource("LabelSettings_yb1ct")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = -1104.0
+offset_top = 248.0
+offset_right = -80.0
+offset_bottom = 576.0
+text = "twoim zadaniem jest zabic 20 potworow, po wykonaniu celu otworza sie drzwi ktore zakoncza gre.
+
+uwazaj aby nie wystrzelac sie z amunicji, ani nie stracic calego zdrowia poniewaz wtedy przegrywasz
+
+spacja - dash
+m1 - strzal
+w a s d - ruch postaci"
+label_settings = SubResource("LabelSettings_ehuit")
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1336.0
+offset_top = 520.0
+offset_right = 1689.0
+offset_bottom = 570.0
+theme_override_fonts/font = ExtResource("1_7n6eb")
+theme_override_font_sizes/font_size = 32
+text = "zrozumiano"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ehuit")
+}
+autoplay = "main"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

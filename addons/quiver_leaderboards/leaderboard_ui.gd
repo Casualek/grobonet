@@ -93,3 +93,7 @@ func _on_prev_button_pressed() -> void:
 func _on_next_button_pressed() -> void:
 	score_offset = score_offset + score_limit
 	refresh_scores()
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://MainMenu.tscn")

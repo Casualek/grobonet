@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	ammo_amount.text = var_to_str(player_data.ammo)
-
+	$EnemiesCount.text = var_to_str(20 - Globals.score);
 	for hp in heart.get_children():
 		var index = hp.get_index() 
 		var x = (index % HEART_ROW_SIZE) * HEART_OFFSET

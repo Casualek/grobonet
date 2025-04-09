@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://cida0xu4y06se"]
+
+[ext_resource type="FontFile" uid="uid://b6mj2s757myeu" path="res://Sprites/Fonts/Daydream.ttf" id="1_rq721"]
+[ext_resource type="Script" uid="uid://dvcqxtc6uwp1p" path="res://line_edit.gd" id="2_ysbh2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rq721"]
+font = ExtResource("1_rq721")
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_hltwu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(304, -104)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/LineEdit:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, -48)]
+}
+
+[sub_resource type="Animation" id="Animation_ysbh2"]
+resource_name = "main"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.406126, 1),
+"update": 0,
+"values": [Vector2(304, -104), Vector2(304, 248)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/LineEdit:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.307786, 1),
+"update": 0,
+"values": [Vector2(384, 840), Vector2(384, 416)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1wiy0"]
+_data = {
+&"RESET": SubResource("Animation_hltwu"),
+&"main": SubResource("Animation_ysbh2")
+}
+
+[node name="Name" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -56.0
+offset_right = 1184.0
+offset_bottom = 704.0
+color = Color(0, 0, 0, 1)
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 416.002
+offset_right = 832.0
+offset_bottom = 482.002
+theme_override_fonts/font = ExtResource("1_rq721")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "nazwa"
+alignment = 1
+script = ExtResource("2_ysbh2")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 248.0
+offset_right = 928.0
+offset_bottom = 463.0
+text = "podaj nick:"
+label_settings = SubResource("LabelSettings_rq721")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1wiy0")
+}
+autoplay = "main"
+
+[connection signal="text_submitted" from="ColorRect/LineEdit" to="ColorRect/LineEdit" method="_on_text_submitted"]

@@ -31,6 +31,7 @@ var last_entered_area: Area2D = null
 var is_dashing: bool = false
 var can_dash: bool = true
 var has_been_played: bool = false
+var has_been_played2: bool = false
 
 func _ready() -> void:
 	$AudioStreamPlayer2D.play()
@@ -52,6 +53,22 @@ func _process(delta: float) -> void:
 		has_been_played = true
 		$Opened.play()
 		$DoorOpen.play("DoorOpen")
+		
+	if player_data.ammo == 0 and has_been_played2 == false:
+		has_been_played2 = true;
+		is_dead = true
+		velocity = Vector2.ZERO
+		gun_handler.visible = false
+		$GameOver.play("Over")
+		anim.play("death")
+		await get_tree().create_timer(3).timeout
+		if get_tree():
+			get_tree().change_scene_to_file("res://MainMenu.tscn")
+			player_data.health += 4
+			is_dead = false
+		
+		
+		
 
 func movement(delta: float) -> void:
 	animations()
@@ -119,10 +136,11 @@ func dead() -> void:
 	is_dead = true
 	velocity = Vector2.ZERO
 	gun_handler.visible = false
+	$GameOver.play("Over")
 	anim.play("death")
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(3).timeout
 	if get_tree():
-		get_tree().reload_current_scene()
+		get_tree().change_scene_to_file("res://MainMenu.tscn")
 		player_data.health += 4
 		is_dead = false
 
@@ -147,8 +165,8 @@ func _on_hotbox_area_entered(area: Area2D) -> void:
 			$hurt.play()
 			flash()
 			$IFrame.start()
-		last_entered_area = area
 		$CheckIfIn.start()
+		last_entered_area = area
 
 func _on_hotbox_area_exited(area: Area2D) -> void:
 	if area == last_entered_area:

@@ -58,6 +58,7 @@ func instance_enemy(player_pos) -> void:
 			var dist = enemy.global_position.distance_to(player_pos)
 			if enemy.position != player_pos && (dist > 5*16 || dist < -5*16):
 				add_child(enemy)
+				enemy.add_to_group("Enemies")
 				break;
 			else:
 				enemy.position = (map.pick_random() * borders.position) * 16

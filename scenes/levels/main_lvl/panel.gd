@@ -14,6 +14,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+		await get_tree().create_timer(0.5).timeout
 		time += delta
 		msec = fmod(time,1) * 100
 		seconds = fmod(time,60)
@@ -21,5 +22,5 @@ func _process(delta):
 		$Minutes.text = "%02d:" % minutes
 		$Seconds.text = "%02d:" % seconds
 		$Msecs.text = "%03d" % msec
-		Globals.time_float = float(seconds) + float(msec) / 1000.0
+		Globals.time_float = float("%02d.%02d.%03d" % [minutes, seconds, msec])
 		

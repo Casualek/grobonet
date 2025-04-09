@@ -10,9 +10,12 @@ config_version=5
 
 [application]
 
-config/name="2d_roguelike"
-run/main_scene="res://scenes/levels/main_lvl/main_lvl.tscn"
+config/name="Grave Digger"
+run/main_scene="uid://cikvx711k7ksn"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.316964, 0.00527703, 0.0242721, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://0xl82wpt14ii"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,7 +26,10 @@ PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 
 [display]
 
+window/size/mode=4
+window/size/borderless=true
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://87cwve0stonl"
 
 [editor_plugins]
 

@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgygkbtm0burn"]
+[gd_scene load_steps=5 format=3 uid="uid://dgygkbtm0burn"]
 
 [ext_resource type="Script" uid="uid://ddyvqowkvijib" path="res://addons/quiver_leaderboards/leaderboard_ui.gd" id="1_3mlof"]
+[ext_resource type="FontFile" uid="uid://b6mj2s757myeu" path="res://Sprites/Fonts/Daydream.ttf" id="2_pp1k2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pp1k2"]
+font = ExtResource("2_pp1k2")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_j14vu"]
+font = ExtResource("2_pp1k2")
+font_size = 25
 
 [node name="LeaderboardUI" type="Control"]
 layout_mode = 3
@@ -12,6 +21,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("1_3mlof")
 leaderboard_id = "dniotwarte-grobonet-OmBG"
+current_player_highlight_color = Color(0.404134, 0.0619878, 0, 1)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -29,6 +39,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Leaderboards"
+label_settings = SubResource("LabelSettings_pp1k2")
 horizontal_alignment = 1
 
 [node name="Nav" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
@@ -46,6 +57,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "Scores"
+label_settings = SubResource("LabelSettings_j14vu")
 horizontal_alignment = 1
 
 [node name="NextButton" type="Button" parent="PanelContainer/VBoxContainer/Nav"]
@@ -58,6 +70,7 @@ text = " > "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_pp1k2")
 columns = 3
 column_titles_visible = true
 allow_search = false
@@ -65,5 +78,16 @@ hide_folding = true
 hide_root = true
 select_mode = 1
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 520.0
+offset_right = 744.0
+offset_bottom = 570.0
+theme_override_fonts/font = ExtResource("2_pp1k2")
+theme_override_font_sizes/font_size = 32
+text = "MAIN-MENU"
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Nav/PrevButton" to="." method="_on_prev_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Nav/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

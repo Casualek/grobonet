@@ -6,6 +6,8 @@ extends Area2D
 
 func _ready() -> void:
 	anim.play("active")
+	await get_tree().create_timer(10).timeout
+	queue_free()
 
 func _process(delta: float) -> void:
 	pass
